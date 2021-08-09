@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+
+    <springProperty scope="context" name="spring.application.name" source="spring.application.name"/>
+    <springProperty scope="context" name="module.loggingLevel" source="module.loggingLevel" defaultValue="info"/>
+    <springProperty scope="context" name="module.loggingRoot" source="module.loggingRoot" defaultValue="/Users/taosy/Documents/taosy/weiyi/data/commerce-werp-hr"/>
+
+    <contextName>commerce-werp-hr</contextName>
+    <jmxConfigurator/>
+
+    <!-- direct log messages to stdout -->
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <Target>System.out</Target>
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%t] %highlight(%-5p) %green(|-%c{35}:%L) %white - %m %n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="ALL" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${module.loggingRoot}/commerce-werp-hr.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${module.loggingRoot}/%d{yyyy-MM,aux}/commerce-werp-hr.log.%d.%i.gz</FileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>200MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <maxHistory>7</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss}[%t]%-5p %c{36}.%M\(%L\) %m%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 定义Spring日志 -->
+    <logger name="org.springframework" level="${module.loggingLevel}" additivity="false">
+        <appender-ref ref="ALL"/>
+        <appender-ref ref="stdout"/>
+    </logger>
+
+    <logger name="com.wedoctor.commerce.werp.gops.biz.mapper" level="debug" additivity="false">
+        <appender-ref ref="stdout"/>
+        <appender-ref ref="ALL"/>
+    </logger>
+
+    <root level="${module.loggingLevel}">
+        <appender-ref ref="stdout"/>
+        <appender-ref ref="ALL"/>
+    </root>
+</configuration>

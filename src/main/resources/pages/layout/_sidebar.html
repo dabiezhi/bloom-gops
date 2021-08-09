@@ -1,0 +1,33 @@
+@/* 侧边栏 */
+<div class="layui-side">
+    <div class="layui-side-scroll">
+
+        <ul class="layui-nav layui-nav-tree" nav-id="system" lay-shrink="all" lay-filter="admin-side-nav" style="margin: 15px 0;">
+            @for(menu in menuList) {
+                @if(objectUtil.isEmpty(menu.children)){
+                <li class="layui-nav-item">
+                    @if(menuLP.dataIndex == 0){
+                    <a id="firstPageAction" lay-href="${menu.path}"><i class="layui-icon ${menu.icon}"></i>&emsp;<cite>${menu.menuName}</cite></a>
+                    @}else{
+                    <a lay-href="${menu.path}"><i class="layui-icon ${menu.icon}"></i>&emsp;<cite>${menu.menuName}</cite></a>
+                    @}
+                </li>
+                @}else{
+                <li class="layui-nav-item">
+                    <a><i class="layui-icon ${menu.icon}"></i>&emsp;<cite>${menu.menuName}</cite></a>
+                    <dl class="layui-nav-child">
+                    @for(subMenu in menu.children){
+                        @if(menuLP.dataIndex == 0 && subMenuLP.dataIndex == 0){
+                        <dd><a id="firstPageAction" lay-href="${subMenu.path}">${subMenu.menuName}</a></dd>
+                        @}else{
+                        <dd><a lay-href="${subMenu.path}">${subMenu.menuName}</a></dd>
+                        @}
+                    @}
+                    </dl>
+                </li>
+                @}
+            @}
+        </ul>
+
+    </div>
+</div>
