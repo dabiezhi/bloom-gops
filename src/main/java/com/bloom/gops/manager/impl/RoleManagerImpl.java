@@ -21,5 +21,7 @@ public class RoleManagerImpl implements RoleManager {
     @Override
     public void add(Role role) {
         roleMapper.insert(role);
+        Integer i = null;
+        i++;
     }
 }

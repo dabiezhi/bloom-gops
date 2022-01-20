@@ -40,7 +40,5 @@ public class OrgManagerImpl implements OrgManager {
         Role role = new Role();
         role.setName("超管");
         roleManager.add(role);
-        Integer i = null;
-        i++;
     }
 }
