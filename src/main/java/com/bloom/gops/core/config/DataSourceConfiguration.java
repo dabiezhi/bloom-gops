@@ -34,7 +34,7 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 @Configuration
 @AutoConfigureAfter(MybatisPlusConfiguration.class)
 @MapperScan(basePackages = {
-    "com.wedoctor.commerce.werp.hr.biz.mapper" }, sqlSessionTemplateRef = "sqlSessionTemplate")
+    "com.bloom.gops.mapper" }, sqlSessionTemplateRef = "sqlSessionTemplate")
 public class DataSourceConfiguration {
 
     @Resource
@@ -59,7 +59,7 @@ public class DataSourceConfiguration {
         sqlSessionFactory.setGlobalConfig(globalConfig);
         ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
         sqlSessionFactory.setMapperLocations(resolver.getResources("classpath*:mapper/*.xml"));
-        sqlSessionFactory.setTypeAliasesPackage("com.wedoctor.commerce.werp.gops.biz.mapper.dataobject");
+        sqlSessionFactory.setTypeAliasesPackage("com.bloom.gops.mapper.dataobject");
         sqlSessionFactory.getObject().getConfiguration().setMapUnderscoreToCamelCase(true);
         sqlSessionFactory.getObject().getConfiguration().setLogImpl(StdOutImpl.class);
         sqlSessionFactory.getObject().getConfiguration().addInterceptor(mybatisPlusInterceptor);
